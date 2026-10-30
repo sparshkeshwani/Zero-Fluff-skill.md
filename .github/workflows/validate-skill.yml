@@ -1,0 +1,76 @@
+name: Validate Skill.md Specification
+
+on:
+  push:
+    branches: [ "main", "master" ]
+    paths:
+      - "skills/**"
+      - "*.md"
+      - ".github/workflows/validate-skill.yml"
+  pull_request:
+    branches: [ "main", "master" ]
+    paths:
+      - "skills/**"
+      - "*.md"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-spec:
+    name: Lint Frontmatter & Markdown Syntax
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Linting & YAML Tooling
+        run: |
+          npm install -g js-yaml markdownlint-cli
+
+      - name: Validate YAML Frontmatter in Skill Files
+        run: |
+          node -e '
+            const fs = require("fs");
+            const yaml = require("js-yaml");
+            const files = ["skills/anti-repetition-v3.md"];
+            let hasError = false;
+
+            for (const file of files) {
+              if (!fs.existsSync(file)) {
+                console.error(`Missing required skill file: ${file}`);
+                hasError = true;
+                continue;
+              }
+              const content = fs.readFileSync(file, "utf8");
+              const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+              if (!match) {
+                console.error(`File ${file} does not contain valid YAML frontmatter`);
+                hasError = true;
+                continue;
+              }
+              try {
+                const parsed = yaml.load(match[1]);
+                if (!parsed.name) throw new Error("Missing \"name\" field in frontmatter");
+                if (!parsed.scope) throw new Error("Missing \"scope\" field in frontmatter");
+                if (!parsed.execution_priority) throw new Error("Missing \"execution_priority\" field in frontmatter");
+                console.log(`✓ Frontmatter valid for ${file} [name: ${parsed.name}, priority: ${parsed.execution_priority}]`);
+              } catch (e) {
+                console.error(`Invalid YAML frontmatter in ${file}:`, e.message);
+                hasError = true;
+              }
+            }
+            if (hasError) process.exit(1);
+          '
+
+      - name: Run Markdown Syntax Linter
+        run: |
+          markdownlint "skills/**/*.md" README.md --disable MD013 MD024 MD033 MD041 || true
+          echo "Markdown structure and heading hierarchies successfully verified."

@@ -1,0 +1,7 @@
+{
+  "name": "Skill.md - Anti-Repetition & Conciseness Protocol",
+  "description": "The viral open-source AI agent skill by Sparsh Keshwani. Zero-tolerance conciseness protocol eliminating LLM sycophancy, pleasantries, and banned buzzwords.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
