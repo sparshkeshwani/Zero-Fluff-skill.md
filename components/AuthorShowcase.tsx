@@ -16,6 +16,7 @@ const BIBTEX_CITATION = `@software{keshwani2026skillmd,
 export default function AuthorShowcase() {
   const [copiedBibtex, setCopiedBibtex] = useState(false);
   const [copiedShare, setCopiedShare] = useState(false);
+  const [copiedTopics, setCopiedTopics] = useState(false);
 
   const handleCopyBibtex = () => {
     navigator.clipboard.writeText(BIBTEX_CITATION);
@@ -93,6 +94,48 @@ export default function AuthorShowcase() {
             </div>
             <div className="text-right text-xs font-semibold text-cyan-400">
               — Sparsh Keshwani, Creator of Skill.md
+            </div>
+          </div>
+
+          {/* GitHub Repository Topics (SEO) */}
+          <div className="mt-8 pt-6 border-t border-slate-800">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+              <div>
+                <div className="text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-1.5">
+                  <span className="text-cyan-400">#</span> Official GitHub Repository Topics (SEO)
+                </div>
+                <div className="text-[11px] text-slate-400 mt-0.5">
+                  Add these 20 topics to your GitHub repo settings to maximize discovery in GitHub Explore and search engines.
+                </div>
+              </div>
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText('prompt-engineering, ai-agents, llm, system-prompt, cursor-rules, token-optimization, claude, chatgpt, gemini, grok, windsurf-rules, anti-repetition, conciseness-protocol, developer-tools, anti-hallucination, ai-safety, system-override, skill-md, sparsh-keshwani, zero-fluff');
+                  setCopiedTopics(true);
+                  setTimeout(() => setCopiedTopics(false), 2000);
+                }}
+                className="inline-flex items-center gap-1.5 rounded-lg border border-cyan-500/40 bg-cyan-950/40 px-3 py-1.5 text-xs font-semibold text-cyan-300 hover:bg-cyan-900/60 transition-colors shrink-0"
+              >
+                {copiedTopics ? <Check className="h-3.5 w-3.5 text-emerald-400" /> : <Copy className="h-3.5 w-3.5" />}
+                <span>{copiedTopics ? 'All 20 Topics Copied!' : 'Copy 20 Topics'}</span>
+              </button>
+            </div>
+
+            <div className="flex flex-wrap gap-1.5">
+              {[
+                'prompt-engineering', 'ai-agents', 'llm', 'system-prompt',
+                'cursor-rules', 'token-optimization', 'claude', 'chatgpt',
+                'gemini', 'grok', 'windsurf-rules', 'anti-repetition',
+                'conciseness-protocol', 'developer-tools', 'anti-hallucination',
+                'ai-safety', 'system-override', 'skill-md', 'sparsh-keshwani', 'zero-fluff'
+              ].map((topic) => (
+                <span
+                  key={topic}
+                  className="rounded-md bg-slate-950 border border-slate-800 px-2 py-0.5 font-mono text-[11px] text-cyan-400 hover:border-cyan-500/60 transition-colors"
+                >
+                  #{topic}
+                </span>
+              ))}
             </div>
           </div>
 

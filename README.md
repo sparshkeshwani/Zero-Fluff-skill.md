@@ -27,7 +27,11 @@
 
 **Engineered and maintained by [Sparsh Keshwani](https://github.com/sparshkeshwani)**
 
-[Quick Start](#quick-start) • [The Core Specification](#core-specification) • [Backtest Scorecard](#backtest-scorecard) • [Forbidden Registry](#forbidden-registry) • [One-Click Installation](#one-click-installation) • [Author & License](#author-license)
+[Quick Start](#quick-start) • [The Core Specification](#core-specification) • [Backtest Scorecard](#backtest-scorecard) • [Forbidden Registry](#forbidden-registry) • [One-Click Installation](#one-click-installation) • [Author & License](#author-license) • [GitHub Topics](#github-topics)
+
+<br/>
+
+`#prompt-engineering` • `#ai-agents` • `#llm` • `#system-prompt` • `#cursor-rules` • `#token-optimization` • `#claude` • `#chatgpt` • `#gemini` • `#grok` • `#windsurf-rules` • `#anti-repetition` • `#conciseness-protocol` • `#developer-tools` • `#skill-md` • `#sparsh-keshwani`
 
 </div>
 
@@ -167,6 +171,17 @@ curl -fsSL https://raw.githubusercontent.com/sparshkeshwani/Zero-Fluff-skill.md/
 
 ### Automated CI/CD
 Every pull request is automatically validated using the GitHub Actions workflow in `.github/workflows/validate-skill.yml` to ensure YAML frontmatter compliance and strict markdown hierarchy.
+
+---
+
+<a id="github-topics"></a>
+## 🏷️ GitHub Repository Topics (SEO Keywords)
+
+To maximize repository visibility across GitHub Explore, topic aggregators, and search engine indices, copy and paste the following 20 validated topics into your repository settings (**About** > ⚙️ Gear icon > **Topics**):
+
+```text
+prompt-engineering, ai-agents, llm, system-prompt, cursor-rules, token-optimization, claude, chatgpt, gemini, grok, windsurf-rules, anti-repetition, conciseness-protocol, developer-tools, anti-hallucination, ai-safety, system-override, skill-md, sparsh-keshwani, zero-fluff
+```
 
 ---
 
