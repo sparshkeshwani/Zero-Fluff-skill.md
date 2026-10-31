@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { FolderGit2, FileCode, Copy, Check, Download, ExternalLink, Terminal } from 'lucide-react';
 import { SKILL_MD_RAW } from '@/lib/constants';
 
-const README_CONTENT = `# Skill.md (Version 3 Anti-Repetition Protocol)
+const README_CONTENT = `# Zero-Fluff-skill.md (Version 3 Anti-Repetition Protocol)
 ### The Global-System-Override Standard for Zero-Fluff, High-Velocity AI Agents
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
