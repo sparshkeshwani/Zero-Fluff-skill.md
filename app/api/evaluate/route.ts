@@ -55,6 +55,12 @@ function analyzeText(text: string) {
   };
 }
 
+export const dynamic = 'force-dynamic';
+
+export async function GET() {
+  return NextResponse.json({ status: 'Skill.md evaluate API active' });
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();

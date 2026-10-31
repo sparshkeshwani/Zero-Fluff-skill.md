@@ -55,20 +55,18 @@ on:
   pull_request:
     branches: [ "main", "master" ]
 
+env:
+  ACTIONS_RUNNER_FORCE_ACTIONS_NODE_VERSION: "node24"
+
 jobs:
   validate-spec:
     name: Lint Frontmatter & Markdown Syntax
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Install Linting Tooling
+      - name: Install Validation Tooling
         run: npm install -g js-yaml markdownlint-cli
 
       - name: Validate YAML Frontmatter in Skill Files
