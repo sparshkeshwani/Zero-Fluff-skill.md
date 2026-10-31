@@ -18,21 +18,22 @@
 # Zero-Fluff-skill.md (Version 3 Anti-Repetition Protocol)
 ### The Global-System-Override Standard for Zero-Fluff, High-Velocity AI Agents
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 [![Author](https://img.shields.io/badge/Author-Sparsh%20Keshwani-9cf?style=for-the-badge&logo=github)](https://github.com/sparshkeshwani)
-[![Version](https://img.shields.io/badge/Version-3.0.0--Universal-success?style=for-the-badge)](https://github.com/sparshkeshwani/skill.md)
-[![Compatibility](https://img.shields.io/badge/Compatibility-Claude%20%7C%20GPT--4o%20%7C%20Gemini%20%7C%20Grok%20%7C%20Cursor-orange?style=for-the-badge)](https://github.com/sparshkeshwani/skill.md)
-[![Build Status](https://img.shields.io/badge/Spec%20Validation-Passing-brightgreen?style=for-the-badge&logo=github-actions)](https://github.com/sparshkeshwani/skill.md/actions)
-[![Zero Fluff](https://img.shields.io/badge/Zero--Tolerance-100%25%20Clinical-red?style=for-the-badge)](https://github.com/sparshkeshwani/skill.md)
+[![Version](https://img.shields.io/badge/Version-3.0.0--Universal-success?style=for-the-badge)](https://github.com/sparshkeshwani/Zero-Fluff-skill.md)
+[![Compatibility](https://img.shields.io/badge/Compatibility-Claude%20%7C%20GPT--4o%20%7C%20Gemini%20%7C%20Grok%20%7C%20Cursor-orange?style=for-the-badge)](#quick-start)
+[![Build Status](https://img.shields.io/badge/Spec%20Validation-Passing-brightgreen?style=for-the-badge&logo=github-actions)](https://github.com/sparshkeshwani/Zero-Fluff-skill.md/actions)
+[![Zero Fluff](https://img.shields.io/badge/Zero--Tolerance-100%25%20Clinical-red?style=for-the-badge)](#core-specification)
 
 **Engineered and maintained by [Sparsh Keshwani](https://github.com/sparshkeshwani)**
 
-[Quick Start](#-quick-start-guide) • [The Core Specification](#-core-specification-v3) • [Backtest Scorecard](#-the-backtest-scorecard) • [Forbidden Registry](#-forbidden-vocabulary-registry) • [One-Click Installation](#-1-click-installation--integrations) • [Author & License](#-author--citation)
+[Quick Start](#quick-start) • [The Core Specification](#core-specification) • [Backtest Scorecard](#backtest-scorecard) • [Forbidden Registry](#forbidden-registry) • [One-Click Installation](#one-click-installation) • [Author & License](#author-license)
 
 </div>
 
 ---
 
+<a id="the-hook"></a>
 ## ⚡ The Hook: Why AI Chatbots Suffer From Conversational Bloat
 
 Modern Large Language Models (LLMs) are RLHF-tuned toward sycophancy and verbose filler. When asked a simple technical question, standard models routinely waste compute, latency, and reader patience with:
@@ -45,6 +46,7 @@ Modern Large Language Models (LLMs) are RLHF-tuned toward sycophancy and verbose
 
 ---
 
+<a id="dual-target"></a>
 ## 🎯 Dual-Target Search & Architecture Alignment
 
 * **Keyword Target 1: Skill.md**: The open-source specification format for AI agent skills, system prompt overrides, and cross-platform developer toolchains.
@@ -52,6 +54,8 @@ Modern Large Language Models (LLMs) are RLHF-tuned toward sycophancy and verbose
 
 ---
 
+<a id="core-specification"></a>
+<a id="the-core-specification"></a>
 ## 📋 Core Specification: v3 Anti-Repetition Protocol
 
 ```markdown
@@ -88,6 +92,8 @@ execution_priority: absolute
 
 ---
 
+<a id="backtest-scorecard"></a>
+<a id="the-backtest-scorecard"></a>
 ## 📊 The Backtest Scorecard: 10/10 Across Frontier Models
 
 Evaluation benchmark across 1,000 rigorous technical prompts comparing standard baseline behavior against **Skill.md by Sparsh Keshwani**:
@@ -113,6 +119,8 @@ Evaluation benchmark across 1,000 rigorous technical prompts comparing standard 
 
 ---
 
+<a id="forbidden-registry"></a>
+<a id="forbidden-vocabulary-registry"></a>
 ## 🚫 Forbidden Vocabulary Registry
 
 The following 17 words are strictly banned under the protocol. Every occurrence is registered as an algorithmic violation:
@@ -127,6 +135,8 @@ The following 17 words are strictly banned under the protocol. Every occurrence 
 
 ---
 
+<a id="quick-start"></a>
+<a id="quick-start-guide"></a>
 ## 🚀 Quick Start Guide: Multi-Platform Setup
 
 | Platform | Deployment Target | 1-Click Instructions |
@@ -140,6 +150,8 @@ The following 17 words are strictly banned under the protocol. Every occurrence 
 
 ---
 
+<a id="one-click-installation"></a>
+<a id="one-click-installation--integrations"></a>
 ## 📦 1-Click Installation & Integrations
 
 ### Via NPM / NPX (Zero-Dependency CLI)
@@ -150,7 +162,7 @@ npx skillmd init
 ### Via Direct Raw Fetch
 ```bash
 # Save directly to your current project's rules
-curl -fsSL https://raw.githubusercontent.com/sparshkeshwani/skill.md/main/skills/anti-repetition-v3.md -o .cursorrules
+curl -fsSL https://raw.githubusercontent.com/sparshkeshwani/Zero-Fluff-skill.md/main/skills/anti-repetition-v3.md -o .cursorrules
 ```
 
 ### Automated CI/CD
@@ -158,16 +170,18 @@ Every pull request is automatically validated using the GitHub Actions workflow 
 
 ---
 
+<a id="author-license"></a>
+<a id="author--citation"></a>
 ## 👤 Author & Citation
 
-**Skill.md** was conceptualized, researched, and engineered by **Sparsh Keshwani**.
+**Zero-Fluff-skill.md** was conceptualized, researched, and engineered by **Sparsh Keshwani**.
 
 ```bibtex
 @software{keshwani2026skillmd,
   author = {Keshwani, Sparsh},
-  title = {Skill.md: Anti-Repetition and Zero-Tolerance Conciseness Protocol v3},
+  title = {Zero-Fluff-skill.md: Anti-Repetition and Zero-Tolerance Conciseness Protocol v3},
   year = {2026},
-  url = {https://github.com/sparshkeshwani/skill.md},
+  url = {https://github.com/sparshkeshwani/Zero-Fluff-skill.md},
   version = {3.0.0}
 }
 ```

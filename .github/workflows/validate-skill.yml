@@ -28,46 +28,71 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Install Validation Tooling
-        run: |
-          npm install -g js-yaml markdownlint-cli
-
-      - name: Validate YAML Frontmatter in Skill Files
+      - name: Validate YAML Frontmatter (Zero-Dependency)
         run: |
           node -e '
             const fs = require("fs");
-            const yaml = require("js-yaml");
-            const files = ["skills/anti-repetition-v3.md"];
+            const file = "skills/anti-repetition-v3.md";
+
+            if (!fs.existsSync(file)) {
+              console.error(`Missing required skill file: ${file}`);
+              process.exit(1);
+            }
+
+            const content = fs.readFileSync(file, "utf8");
+            const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+            if (!match) {
+              console.error(`File ${file} does not contain valid YAML frontmatter delimiters (---)`);
+              process.exit(1);
+            }
+
+            const frontmatter = match[1];
+            const requiredKeys = ["name", "scope", "execution_priority"];
             let hasError = false;
 
-            for (const file of files) {
-              if (!fs.existsSync(file)) {
-                console.error(`Missing required skill file: ${file}`);
+            for (const key of requiredKeys) {
+              const regex = new RegExp(`^${key}:\\s*(.+)$`, "m");
+              const keyMatch = frontmatter.match(regex);
+              if (!keyMatch || !keyMatch[1].trim()) {
+                console.error(`Missing or empty required frontmatter field: "${key}" in ${file}`);
                 hasError = true;
-                continue;
-              }
-              const content = fs.readFileSync(file, "utf8");
-              const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
-              if (!match) {
-                console.error(`File ${file} does not contain valid YAML frontmatter`);
-                hasError = true;
-                continue;
-              }
-              try {
-                const parsed = yaml.load(match[1]);
-                if (!parsed.name) throw new Error("Missing \"name\" field in frontmatter");
-                if (!parsed.scope) throw new Error("Missing \"scope\" field in frontmatter");
-                if (!parsed.execution_priority) throw new Error("Missing \"execution_priority\" field in frontmatter");
-                console.log(`✓ Frontmatter valid for ${file} [name: ${parsed.name}, priority: ${parsed.execution_priority}]`);
-              } catch (e) {
-                console.error(`Invalid YAML frontmatter in ${file}:`, e.message);
-                hasError = true;
+              } else {
+                console.log(`✓ Frontmatter valid: ${key} = "${keyMatch[1].trim()}"`);
               }
             }
+
             if (hasError) process.exit(1);
+            console.log(`✓ All frontmatter fields in ${file} verified successfully.`);
           '
 
-      - name: Run Markdown Syntax Linter
+      - name: Validate Markdown Structure & Headers
         run: |
-          markdownlint "skills/**/*.md" README.md --disable MD013 MD024 MD033 MD041 || true
-          echo "Markdown structure and heading hierarchies successfully verified."
+          node -e '
+            const fs = require("fs");
+            const skillFile = "skills/anti-repetition-v3.md";
+            const readmeFile = "README.md";
+
+            const skillContent = fs.readFileSync(skillFile, "utf8");
+            const requiredSections = [
+              "## 1. Absolute Prohibition on Conversational Filler",
+              "## 2. Strict Lexical & Stylistic Boundaries",
+              "## 3. Structural & Engineering Mandates"
+            ];
+
+            for (const section of requiredSections) {
+              if (!skillContent.includes(section)) {
+                console.error(`Missing expected section in ${skillFile}: "${section}"`);
+                process.exit(1);
+              }
+            }
+            console.log(`✓ ${skillFile} structure verified.`);
+
+            if (fs.existsSync(readmeFile)) {
+              const readmeContent = fs.readFileSync(readmeFile, "utf8");
+              if (!readmeContent.includes("Zero-Fluff-skill.md")) {
+                console.error("README.md is missing expected repository header");
+                process.exit(1);
+              }
+              console.log(`✓ ${readmeFile} verified.`);
+            }
+          '

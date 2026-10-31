@@ -52,8 +52,16 @@ on:
     paths:
       - "skills/**"
       - "*.md"
+      - ".github/workflows/validate-skill.yml"
   pull_request:
     branches: [ "main", "master" ]
+    paths:
+      - "skills/**"
+      - "*.md"
+
+concurrency:
+  group: \${{ github.workflow }}-\${{ github.ref }}
+  cancel-in-progress: true
 
 env:
   ACTIONS_RUNNER_FORCE_ACTIONS_NODE_VERSION: "node24"
@@ -66,22 +74,47 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Install Validation Tooling
-        run: npm install -g js-yaml markdownlint-cli
-
-      - name: Validate YAML Frontmatter in Skill Files
+      - name: Validate YAML Frontmatter (Zero-Dependency)
         run: |
           node -e '
             const fs = require("fs");
-            const yaml = require("js-yaml");
-            const content = fs.readFileSync("skills/anti-repetition-v3.md", "utf8");
-            const match = content.match(/^---\\r?\\n([\\s\\S]*?)\\r?\\n---/);
-            if (!match) throw new Error("Missing YAML frontmatter");
-            const parsed = yaml.load(match[1]);
-            if (!parsed.name || !parsed.scope || !parsed.execution_priority) {
-              throw new Error("Frontmatter schema incomplete");
+            const file = "skills/anti-repetition-v3.md";
+            if (!fs.existsSync(file)) {
+              console.error("Missing required skill file: " + file);
+              process.exit(1);
             }
-            console.log("YAML frontmatter validated successfully.");
+            const content = fs.readFileSync(file, "utf8");
+            const match = content.match(/^---\\r?\\n([\\s\\S]*?)\\r?\\n---/);
+            if (!match) {
+              console.error("Missing YAML frontmatter delimiters in " + file);
+              process.exit(1);
+            }
+            const frontmatter = match[1];
+            const requiredKeys = ["name", "scope", "execution_priority"];
+            for (const key of requiredKeys) {
+              const regex = new RegExp("^" + key + ":\\\\s*(.+)$", "m");
+              if (!regex.test(frontmatter)) {
+                console.error("Missing required field: " + key);
+                process.exit(1);
+              }
+            }
+            console.log("✓ Frontmatter validated successfully.");
+          '
+
+      - name: Validate Markdown Structure & Headers
+        run: |
+          node -e '
+            const fs = require("fs");
+            const content = fs.readFileSync("skills/anti-repetition-v3.md", "utf8");
+            const sections = [
+              "## 1. Absolute Prohibition on Conversational Filler",
+              "## 2. Strict Lexical & Stylistic Boundaries",
+              "## 3. Structural & Engineering Mandates"
+            ];
+            for (const s of sections) {
+              if (!content.includes(s)) process.exit(1);
+            }
+            console.log("✓ Markdown structure verified.");
           '`;
 
 export default function RepositoryBrowser() {
